@@ -1,5 +1,6 @@
 from random import choice as cc
 from random import randint
+from datetime import date
 
 # modelo de alimentação:
 """
@@ -16,6 +17,13 @@ id = null (auto increment)
 id_user = random -> quantidade de user
 conteudo = conteudos
 data_post = random datetime
+"""
+"""
+#### grupos ####
+id = null (auto_increment)
+id_user = random -> quantidade de user
+nome = random nomes de grupos
+desc = random temas de trends
 """
 
 # usuarios
@@ -44,8 +52,66 @@ class Usuarios:
         sobrenome = cc(sobrenomes)
         self.nome = primeiro_nome + " " + sobrenome
         self.email = primeiro_nome.lower() + sobrenome.lower() + cc(emails)
-        self.telefone = str(randint(90000, 99999)) + "-" + str(randint(1111, 9999))
+        self.telefone = str(randint(90000, 99999)) + "-" + str(randint(1000, 9999))
         self.id_grupo = randint(1, quantidade_grupos)
 
 
+# Posts
+conteudo = [
+    "Estou radiante!",
+    "Que alegria!",
+    "Estou nas nuvens!",
+    "Isso é incrível!",
+    "Estou sorrindo de orelha a orelha!",
+    "Felicidade pura!",
+    "Estou tão feliz que não consigo conter!",
+    "É um sonho realizado!",
+    "Estou pulando de alegria!",
+    "Isso fez o meu dia!",
+    "Estou de coração partido.",
+    "Que tristeza profunda.",
+    "Sinto como se o mundo estivesse desabando.",
+    "Estou me sentindo melancólico.",
+    "Às vezes, a vida é tão cruel.",
+    "Estou me sentindo vazio por dentro.",
+    "Essa notícia me deixou arrasado.",
+    "É difícil segurar as lágrimas.",
+    "Estou em um momento difícil.",
+    "Às vezes, a tristeza é inevitável.",
+    "Estou furioso!",
+    "Que raiva!",
+    "Estou prestes a explodir!",
+    "Não posso acreditar no que aconteceu!",
+    "Estou com ódio dessa situação.",
+    "Essa injustiça me deixa louco.",
+    "Estou fervendo de raiva por dentro.",
+    "Preciso me acalmar antes de fazer algo impulsivo.",
+    "Não posso suportar isso mais!",
+    "Estou com uma raiva que não passa.",
+    "Uau, que surpresa!",
+    "Não estava esperando por isso!",
+    "Estou boquiaberto!",
+    "Inacreditável!",
+    "Que choque!",
+    "Estou sem palavras!",
+    "Isso é realmente surpreendente!",
+    "Nunca vi algo assim antes!",
+    "Que reviravolta inesperada!",
+    "Minha mente está explodindo de surpresa!"
+]
 
+
+class Posts:
+    def __init__(self, quantidade_user):
+        ano = randint(2000, 2023)
+        mes = randint(1, 12)
+        if mes == 12:
+            dias_no_mes = 31  # Dezembro sempre tem 31 dias
+        else:
+            # Verifique quantos dias há no mês gerado
+            dias_no_mes = (date(ano, mes + 1, 1) - date(ano, mes, 1)).days
+        dias = randint(1, dias_no_mes)
+
+        self.id_user = randint(1, quantidade_user)
+        self.conteudo = cc(conteudo)
+        self.data_post = date(ano, mes, dias)
