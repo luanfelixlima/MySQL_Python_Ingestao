@@ -111,7 +111,44 @@ class Posts:
             # Verifique quantos dias há no mês gerado
             dias_no_mes = (date(ano, mes + 1, 1) - date(ano, mes, 1)).days
         dias = randint(1, dias_no_mes)
-
+        self.id_rede_social = randint(1, 3)
         self.id_user = randint(1, quantidade_user)
         self.conteudo = cc(conteudo)
         self.data_post = date(ano, mes, dias)
+
+
+# grupos
+temas_com_descricao = {
+    "Fotografia": "Compartilhe e discuta fotos incríveis, dicas de fotografia e técnicas de edição.",
+    "Viagens": "Descubra destinos emocionantes, planeje aventuras e compartilhe suas experiências de viagem.",
+    "Alimentação": "Converse sobre receitas deliciosas, dicas de culinária e nutrição saudável.",
+    "Tecnologia": "Explore as últimas tendências tecnológicas, gadgets e novidades do mundo da tecnologia.",
+    "Música": "Compartilhe suas músicas favoritas, artistas e discuta os últimos lançamentos musicais.",
+    "Esportes": "Apaixonados por esportes podem debater sobre seus times, eventos esportivos e treinamento físico.",
+    "Moda": "Converse sobre tendências de moda, estilo pessoal e dicas de beleza.",
+    "Cinema": "Discuta filmes, diretores, atores e as últimas estreias do mundo do cinema.",
+    "Livros": "Compartilhe suas leituras atuais, resenhas e recomendações de livros.",
+    "Artesanato": "Mostre suas criações artesanais, compartilhe tutoriais e inspire-se na arte feita à mão."
+}
+
+
+class Grupos:
+    def __init__(self):
+        escolhido = randint(0, 9)
+        tema = list(temas_com_descricao.keys())[escolhido]
+        descricao = temas_com_descricao[tema]
+        self.nome = tema
+        self.descricao = descricao
+
+
+# redes sociais
+redes_sociais = [
+    "SociaLink",
+    "AmigoConect",
+    "InstaRede"
+]
+
+
+class RedeSocial:
+    def __init__(self):
+        self.nome = cc(redes_sociais)
