@@ -1,3 +1,5 @@
+from gerar_dados import *
+
 while True:
     try:
         escolha = int(input("======================\n"
@@ -9,7 +11,23 @@ while True:
                             ">>> "))
         # GERAR DADOS
         if escolha == 1:
-            pass
+
+            # RECEBENDO PARAMÊTROS
+            qt_user = int(input("Quantidade de usuários: "))
+            qt_grupos = int(input("Quantidade de Grupos: "))
+            qt_redes_sociais = int(input("Quantidade de Redes Sociais (Max 3): "))
+            while qt_redes_sociais > 3:
+                qt_redes_sociais = int(input("Quantidade de Redes Sociais (Max 3): "))
+
+            # GERAR DADOS DOS USUÁRIOS
+            carregamento("Usuários")
+            usuarios = gerar_usuarios(qt_user, qt_grupos)
+            if usuarios.shape[1] >= 10:
+                print("Top 10:\n", usuarios.head(10), "\n")
+            else:
+                print(f"Top {qt_user}", usuarios.head(qt_user), "\n")
+
+            # GERAR DADOS DOS
 
         # APAGAR DADOS
         elif escolha == 2:

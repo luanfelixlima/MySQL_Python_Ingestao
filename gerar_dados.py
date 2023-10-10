@@ -1,6 +1,17 @@
 from random import choice as cc
 from random import randint
 from datetime import date
+from time import sleep
+import pandas as pd
+
+
+def carregamento(dado):
+    print(f"\nGerando {dado}.")
+    sleep(0.5)
+    print(f"Gerando {dado}..")
+    sleep(0.5)
+    print(f"Gerando {dado}...\n")
+
 
 # modelo de alimentação:
 """
@@ -142,13 +153,41 @@ class Grupos:
 
 
 # redes sociais
-redes_sociais = [
-    "SociaLink",
-    "AmigoConect",
-    "InstaRede"
-]
+def gerar_redes_sociais(quantidade):
+    redes_sociais = [
+        "SociaLink",
+        "AmigoConect",
+        "InstaRede"
+    ]
+    for i in range(0, quantidade - 1):
+        return redes_sociais[i]
 
 
-class RedeSocial:
-    def __init__(self):
-        self.nome = cc(redes_sociais)
+def gerar_usuarios(quantidade_user, quantidade_grupo):
+    # Crie um DataFrame vazio com as colunas
+    dados_clientes = {
+        "nome": [],
+        "email": [],
+        "tel": [],
+        "id_gp": []
+    }
+    df = pd.DataFrame(dados_clientes)
+    # Crie uma lista para armazenar as linhas de dados
+    linhas = []
+    # Preencha a lista com dados fictícios
+    for user in range(1, quantidade_user + 1):
+        user1 = Usuarios(randint(1, quantidade_grupo))
+        new_dados = {
+            "nome": user1.nome,
+            "email": user1.email,
+            "tel": user1.telefone,
+            "id_gp": int(user1.id_grupo)
+        }
+        linhas.append(new_dados)
+    #  adicionar as linhas ao DataFrame
+    df = pd.concat([df, pd.DataFrame(linhas)], ignore_index=True)
+    return df
+
+
+def gerar_post(quantidade_user):
+    pass
