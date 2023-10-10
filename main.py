@@ -22,12 +22,13 @@ while True:
             # GERAR DADOS DOS USUÁRIOS
             carregamento("Usuários")
             usuarios = gerar_usuarios(qt_user, qt_grupos)
-            if usuarios.shape[1] >= 10:
-                print("Top 10:\n", usuarios.head(10), "\n")
-            else:
-                print(f"Top {qt_user}", usuarios.head(qt_user), "\n")
+            exibicao(usuarios, qt_user)
 
-            # GERAR DADOS DOS
+            # GERAR DADOS DOS POSTS
+            qt_posts = int(input("Quantidade de posts: "))
+            carregamento("Posts")
+            posts = gerar_post(qt_posts, qt_user, qt_redes_sociais)
+            exibicao(posts, qt_posts)
 
         # APAGAR DADOS
         elif escolha == 2:

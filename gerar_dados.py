@@ -13,6 +13,13 @@ def carregamento(dado):
     print(f"Gerando {dado}...\n")
 
 
+def exibicao(dados, qt):
+    if dados.shape[1] >= 10:
+        print("Top 10:\n", dados.head(10), "\n")
+    else:
+        print(f"Top {qt}", dados.head(qt), "\n")
+
+
 # modelo de alimentação:
 """
 #### usuarios ####
@@ -113,8 +120,8 @@ conteudo = [
 
 
 class Posts:
-    def __init__(self, quantidade_user):
-        ano = randint(2000, 2023)
+    def __init__(self, quantidade_user, quantidade_rede_social):
+        ano = randint(2020, 2023)
         mes = randint(1, 12)
         if mes == 12:
             dias_no_mes = 31  # Dezembro sempre tem 31 dias
@@ -122,7 +129,7 @@ class Posts:
             # Verifique quantos dias há no mês gerado
             dias_no_mes = (date(ano, mes + 1, 1) - date(ano, mes, 1)).days
         dias = randint(1, dias_no_mes)
-        self.id_rede_social = randint(1, 3)
+        self.id_rede_social = randint(1, quantidade_rede_social)
         self.id_user = randint(1, quantidade_user)
         self.conteudo = cc(conteudo)
         self.data_post = date(ano, mes, dias)
@@ -176,12 +183,12 @@ def gerar_usuarios(quantidade_user, quantidade_grupo):
     linhas = []
     # Preencha a lista com dados fictícios
     for user in range(1, quantidade_user + 1):
-        user1 = Usuarios(randint(1, quantidade_grupo))
+        user1 = Usuarios(quantidade_grupo)
         new_dados = {
             "nome": user1.nome,
             "email": user1.email,
             "tel": user1.telefone,
-            "id_gp": int(user1.id_grupo)
+            "id_gp": user1.id_grupo
         }
         linhas.append(new_dados)
     #  adicionar as linhas ao DataFrame
@@ -189,5 +196,26 @@ def gerar_usuarios(quantidade_user, quantidade_grupo):
     return df
 
 
-def gerar_post(quantidade_user):
-    pass
+def gerar_post(quantidade_posts, quantidade_user, quantidade_rede_social):
+    dados_posts = {
+        "id_user": [],
+        "conteudo": [],
+        "data_post": [],
+        "id_rede_social": []
+    }
+    df = pd.DataFrame(dados_posts)
+    linhas = []
+    for post in range(1, quantidade_posts + 1):
+        post1 = Posts(quantidade_user, quantidade_rede_social)
+        new_dados = {
+            "id_user": post1.id_user,
+            "conteudo": post1.conteudo,
+            "data post": post1.data_post,
+            "id_rede_social": post1.id_rede_social
+        }
+        linhas.append(new_dados)
+    df = pd.concat([df, pd.DataFrame(linhas)], ignore_index=True)
+    return df
+
+
+
