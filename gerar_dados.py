@@ -6,6 +6,7 @@ import pandas as pd
 
 
 def carregamento(dado):
+    print(f"{'-'* 60}")
     print(f"\nGerando {dado}.")
     sleep(0.5)
     print(f"Gerando {dado}..")
@@ -14,10 +15,12 @@ def carregamento(dado):
 
 
 def exibicao(dados, qt):
-    if dados.shape[1] >= 10:
-        print("Top 10:\n", dados.head(10), "\n")
+    if dados.shape[0] >= 10:
+        print(f"{dados.shape[0]} Linhas e {dados.shape[1]} Colunas geradas!\n"
+              f"Top 10:\n", dados.head(10), "\n")
     else:
-        print(f"Top {qt}", dados.head(qt), "\n")
+        print(f"{dados.shape[0]} Linhas e {dados.shape[1]} Colunas geradas!\n"
+              f"Top {qt}\n", dados.head(qt), "\n")
 
 
 # modelo de alimentação:
@@ -150,24 +153,22 @@ temas_com_descricao = {
 }
 
 
-class Grupos:
-    def __init__(self):
-        escolhido = randint(0, 9)
-        tema = list(temas_com_descricao.keys())[escolhido]
-        descricao = temas_com_descricao[tema]
-        self.nome = tema
-        self.descricao = descricao
-
-
-# redes sociais
-def gerar_redes_sociais(quantidade):
+def gerar_redes_sociais(quantidade_redes_sociais):
     redes_sociais = [
         "SociaLink",
         "AmigoConect",
         "InstaRede"
     ]
-    for i in range(0, quantidade - 1):
-        return redes_sociais[i]
+    dados = {"Nome": []}
+    df = pd.DataFrame(dados)
+    linhas = []
+    for i in range(0, quantidade_redes_sociais):
+        new_dados = {
+            "Nome": redes_sociais[i]
+        }
+        linhas.append(new_dados)
+    df = pd.concat([df, pd.DataFrame(linhas)], ignore_index=True)
+    return df
 
 
 def gerar_usuarios(quantidade_user, quantidade_grupo):
@@ -196,7 +197,7 @@ def gerar_usuarios(quantidade_user, quantidade_grupo):
     return df
 
 
-def gerar_post(quantidade_posts, quantidade_user, quantidade_rede_social):
+def gerar_post(quantidade_posts, quantidade_user, quantidade_redes_sociais):
     dados_posts = {
         "id_user": [],
         "conteudo": [],
@@ -206,7 +207,7 @@ def gerar_post(quantidade_posts, quantidade_user, quantidade_rede_social):
     df = pd.DataFrame(dados_posts)
     linhas = []
     for post in range(1, quantidade_posts + 1):
-        post1 = Posts(quantidade_user, quantidade_rede_social)
+        post1 = Posts(quantidade_user, quantidade_redes_sociais)
         new_dados = {
             "id_user": post1.id_user,
             "conteudo": post1.conteudo,
@@ -218,4 +219,8 @@ def gerar_post(quantidade_posts, quantidade_user, quantidade_rede_social):
     return df
 
 
+def gerar_grupos(quantidade_grupo):
+    pass
+    dados_grupos = {
 
+    }
