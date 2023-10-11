@@ -5,6 +5,18 @@ from time import sleep
 import pandas as pd
 
 
+def aviso(tabela):
+    print(f"\nTodos os dados da tabela \"{tabela}\" serão apagados!\n"
+          "Deseja continuar? (n/s)")
+    sair = str(input("> ")).lower()
+    while sair != "s" and sair != "n":
+        sair = str(input("> ")).lower()
+    if sair == "s":
+        print("Dados apagados! Alteração realizada! Voltando para o menu...\n")
+    elif sair == "n":
+        print("Nenhuma alteração realizada! Voltando para o menu...\n")
+
+
 def carregamento(dado):
     print(f"{'-'* 60}")
     print(f"\nGerando {dado}.")
@@ -138,21 +150,6 @@ class Posts:
         self.data_post = date(ano, mes, dias)
 
 
-# grupos
-temas_com_descricao = {
-    "Fotografia": "Compartilhe e discuta fotos incríveis, dicas de fotografia e técnicas de edição.",
-    "Viagens": "Descubra destinos emocionantes, planeje aventuras e compartilhe suas experiências de viagem.",
-    "Alimentação": "Converse sobre receitas deliciosas, dicas de culinária e nutrição saudável.",
-    "Tecnologia": "Explore as últimas tendências tecnológicas, gadgets e novidades do mundo da tecnologia.",
-    "Música": "Compartilhe suas músicas favoritas, artistas e discuta os últimos lançamentos musicais.",
-    "Esportes": "Apaixonados por esportes podem debater sobre seus times, eventos esportivos e treinamento físico.",
-    "Moda": "Converse sobre tendências de moda, estilo pessoal e dicas de beleza.",
-    "Cinema": "Discuta filmes, diretores, atores e as últimas estreias do mundo do cinema.",
-    "Livros": "Compartilhe suas leituras atuais, resenhas e recomendações de livros.",
-    "Artesanato": "Mostre suas criações artesanais, compartilhe tutoriais e inspire-se na arte feita à mão."
-}
-
-
 def gerar_redes_sociais(quantidade_redes_sociais):
     redes_sociais = [
         "SociaLink",
@@ -220,7 +217,27 @@ def gerar_post(quantidade_posts, quantidade_user, quantidade_redes_sociais):
 
 
 def gerar_grupos(quantidade_grupo):
-    pass
-    dados_grupos = {
-
+    temas_com_descricao = {
+        "Fotografia": "Compartilhe e discuta fotos incríveis, dicas de fotografia e técnicas de edição.",
+        "Viagens": "Descubra destinos emocionantes, planeje aventuras e compartilhe suas experiências de viagem.",
+        "Alimentação": "Converse sobre receitas deliciosas, dicas de culinária e nutrição saudável.",
+        "Tecnologia": "Explore as últimas tendências tecnológicas, gadgets e novidades do mundo da tecnologia.",
+        "Música": "Compartilhe suas músicas favoritas, artistas e discuta os últimos lançamentos musicais.",
+        "Esportes": "Apaixonados por esportes podem debater sobre seus times, eventos esportivos e treinamento físico.",
+        "Moda": "Converse sobre tendências de moda, estilo pessoal e dicas de beleza.",
+        "Cinema": "Discuta filmes, diretores, atores e as últimas estreias do mundo do cinema.",
+        "Livros": "Compartilhe suas leituras atuais, resenhas e recomendações de livros.",
+        "Artesanato": "Mostre suas criações artesanais, compartilhe tutoriais e inspire-se na arte feita à mão."
     }
+    dados_grupo = {
+        "Nome": [],
+        "Descrição": []
+    }
+    linhas = []
+    chaves = []
+    for chave in temas_com_descricao.keys():
+        chaves.append(chave)
+    for i in range(0, quantidade_grupo):
+        pass
+
+

@@ -1,5 +1,27 @@
 from gerar_dados import *
+import mysql.connector
 
+# PARÂMETROS DA CONEXÃO
+while True:
+    try:
+        host = str(input("[Host] > "))
+        database = str(input("[Database] > "))
+        user = str(input("[User] > "))
+        password = str(input("[Pass] > "))
+        print("")
+        break
+    except ValueError:
+        print("Valor inválido!")
+
+# CONEXÃO
+con = mysql.connector.connect(
+    host=host,
+    database=database,
+    user=user,
+    password=password
+)
+
+# PROGRAMA
 while True:
     try:
         escolha = int(input("======================\n"
@@ -41,7 +63,13 @@ while True:
 
         # APAGAR DADOS
         elif escolha == 2:
-            pass
+            print("====Escolher Tabela====\n"
+                  "[1] - Usuarios        |\n"
+                  "[2] - Posts           |\n"
+                  "[3] - Grupos          |\n"
+                  "[4] - Redes Sociais   |\n"
+                  "=======================\n"
+                  ">>> ")
 
         # CONSULTAR DADOS
         elif escolha == 3:
