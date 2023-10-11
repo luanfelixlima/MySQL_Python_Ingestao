@@ -1,17 +1,17 @@
 from gerar_dados import *
+from visuais import *
 import mysql.connector
 
 # PARÂMETROS DA CONEXÃO
 while True:
-    try:
-        host = str(input("[Host] > "))
-        database = str(input("[Database] > "))
-        user = str(input("[User] > "))
-        password = str(input("[Pass] > "))
-        print("")
-        break
-    except ValueError:
-        print("Valor inválido!")
+    print(f"{'=' * 40} Alimentando Banco de dados v1.0 {'=' * 40}")
+    print("-> Dados do Banco MySQL <-")
+    host = str(input("[Host] > "))
+    database = str(input("[Database] > "))
+    user = str(input("[User] > "))
+    password = str(input("[Pass] > "))
+    print("")
+    break
 
 # CONEXÃO
 con = mysql.connector.connect(
@@ -55,6 +55,9 @@ while True:
             exibicao(posts, qt_posts)
 
             # GERAR DADOS DOS GRUPOS
+            carregamento("Grupos")
+            grupos = gerar_grupos(qt_grupos)
+            exibicao(grupos, qt_grupos)
 
             # GERAR REDES SOCIAIS
             carregamento("Redes Sociais")
@@ -63,13 +66,12 @@ while True:
 
         # APAGAR DADOS
         elif escolha == 2:
-            print("====Escolher Tabela====\n"
-                  "[1] - Usuarios        |\n"
-                  "[2] - Posts           |\n"
-                  "[3] - Grupos          |\n"
-                  "[4] - Redes Sociais   |\n"
-                  "=======================\n"
-                  ">>> ")
+            apagar = int(input("\n**** Escolher Tabela ****\n"
+                               "[1] - Usuarios        |\n"
+                               "[2] - Posts           |\n"
+                               "[3] - Grupos          |\n"
+                               "[4] - Redes Sociais   |\n"
+                               ">>> "))
 
         # CONSULTAR DADOS
         elif escolha == 3:

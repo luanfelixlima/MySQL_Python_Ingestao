@@ -1,39 +1,9 @@
 from random import choice as cc
 from random import randint
 from datetime import date
-from time import sleep
 import pandas as pd
 
-
-def aviso(tabela):
-    print(f"\nTodos os dados da tabela \"{tabela}\" serão apagados!\n"
-          "Deseja continuar? (n/s)")
-    sair = str(input("> ")).lower()
-    while sair != "s" and sair != "n":
-        sair = str(input("> ")).lower()
-    if sair == "s":
-        print("Dados apagados! Alteração realizada! Voltando para o menu...\n")
-    elif sair == "n":
-        print("Nenhuma alteração realizada! Voltando para o menu...\n")
-
-
-def carregamento(dado):
-    print(f"{'-'* 60}")
-    print(f"\nGerando {dado}.")
-    sleep(0.5)
-    print(f"Gerando {dado}..")
-    sleep(0.5)
-    print(f"Gerando {dado}...\n")
-
-
-def exibicao(dados, qt):
-    if dados.shape[0] >= 10:
-        print(f"{dados.shape[0]} Linhas e {dados.shape[1]} Colunas geradas!\n"
-              f"Top 10:\n", dados.head(10), "\n")
-    else:
-        print(f"{dados.shape[0]} Linhas e {dados.shape[1]} Colunas geradas!\n"
-              f"Top {qt}\n", dados.head(qt), "\n")
-
+global chave
 
 # modelo de alimentação:
 """
@@ -153,7 +123,7 @@ class Posts:
 def gerar_redes_sociais(quantidade_redes_sociais):
     redes_sociais = [
         "SociaLink",
-        "AmigoConect",
+        "AmigoConnect",
         "InstaRede"
     ]
     dados = {"Nome": []}
@@ -217,6 +187,7 @@ def gerar_post(quantidade_posts, quantidade_user, quantidade_redes_sociais):
 
 
 def gerar_grupos(quantidade_grupo):
+    global chave
     temas_com_descricao = {
         "Fotografia": "Compartilhe e discuta fotos incríveis, dicas de fotografia e técnicas de edição.",
         "Viagens": "Descubra destinos emocionantes, planeje aventuras e compartilhe suas experiências de viagem.",
@@ -233,11 +204,16 @@ def gerar_grupos(quantidade_grupo):
         "Nome": [],
         "Descrição": []
     }
+    df = pd.DataFrame(dados_grupo)
     linhas = []
-    chaves = []
+    chaves = []  # armazenando as chaves do dicionarios para poder acessar por indice
     for chave in temas_com_descricao.keys():
         chaves.append(chave)
     for i in range(0, quantidade_grupo):
-        pass
-
-
+        new_dados = {
+            "Nome": chaves[i],
+            "Descrição": temas_com_descricao[chaves[i]]
+        }
+        linhas.append(new_dados)
+    df = pd.concat([df, pd.DataFrame(linhas)], ignore_index=True)
+    return df
