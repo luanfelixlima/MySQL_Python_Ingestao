@@ -42,6 +42,7 @@ while True:
             qt_redes_sociais = int(input("Quantidade de Redes Sociais (Max 3): "))
             while qt_redes_sociais > 3:
                 qt_redes_sociais = int(input("Quantidade de Redes Sociais (Max 3): "))
+            qt_posts = int(input("Quantidade de posts: "))
 
             # GERAR DADOS DOS USUÁRIOS
             carregamento("Usuários")
@@ -49,7 +50,6 @@ while True:
             exibicao(usuarios, qt_user)
 
             # GERAR DADOS DOS POSTS
-            qt_posts = int(input("Quantidade de posts: "))  # RECEBENDO PARÂMETRO
             carregamento("Posts")
             posts = gerar_post(qt_posts, qt_user, qt_redes_sociais)
             exibicao(posts, qt_posts)

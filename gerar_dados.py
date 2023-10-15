@@ -51,12 +51,15 @@ sobrenomes = [
 
 class Usuarios:
     def __init__(self, quantidade_grupos):
-        primeiro_nome = cc(nomes)
-        sobrenome = cc(sobrenomes)
-        self.nome = primeiro_nome + " " + sobrenome
-        self.email = primeiro_nome.lower() + sobrenome.lower() + cc(emails)
-        self.telefone = str(randint(90000, 99999)) + "-" + str(randint(1000, 9999))
-        self.id_grupo = randint(1, quantidade_grupos)
+        """
+        :param quantidade_grupos: quantidade de grupos que terá no BD
+        """
+        primeiro_nome = cc(nomes)  # nome aleatório
+        sobrenome = cc(sobrenomes)  # sobrenome aleatório
+        self.nome = primeiro_nome + " " + sobrenome  # Nome Completo
+        self.email = primeiro_nome.lower() + sobrenome.lower() + cc(emails)  # nome + sobrenome + email aleatório
+        self.telefone = str(randint(90000, 99999)) + "-" + str(randint(1000, 9999))  # Número de Telefone aleatório
+        self.id_grupo = randint(1, quantidade_grupos)  # Id de grupo aleatório baseado na quantidade de grupo
 
 
 # Posts
@@ -106,6 +109,10 @@ conteudo = [
 
 class Posts:
     def __init__(self, quantidade_user, quantidade_rede_social):
+        """
+        :param quantidade_user: quantidade de usuários que terá no BD
+        :param quantidade_rede_social: quantidade de redes sociais no BD
+        """
         ano = randint(2020, 2023)
         mes = randint(1, 12)
         if mes == 12:
@@ -113,43 +120,49 @@ class Posts:
         else:
             # Verifique quantos dias há no mês gerado
             dias_no_mes = (date(ano, mes + 1, 1) - date(ano, mes, 1)).days
-        dias = randint(1, dias_no_mes)
-        self.id_rede_social = randint(1, quantidade_rede_social)
-        self.id_user = randint(1, quantidade_user)
-        self.conteudo = cc(conteudo)
-        self.data_post = date(ano, mes, dias)
+        dias = randint(1, dias_no_mes)  # gerando um dia aleatório com base no mês
+        self.id_rede_social = randint(1, quantidade_rede_social)  # Id da rede social aleatório baseado na quantidade de redes sociais
+        self.id_user = randint(1, quantidade_user)  # Id do usuário aleatório baseado na quantidade de usuários
+        self.conteudo = cc(conteudo)  # Conteúdo do post aleatório
+        self.data_post = date(ano, mes, dias)  # Gerando a data
 
 
 def gerar_redes_sociais(quantidade_redes_sociais):
-    redes_sociais = [
+    """
+    :param quantidade_redes_sociais: Quantidade de redes sociais que serão geradas no BD
+    :return: DataFrame com os dados gerados
+    """
+    redes_sociais = [  # Nomes das redes sociais
         "SociaLink",
         "AmigoConnect",
         "InstaRede"
     ]
-    dados = {"Nome": []}
-    df = pd.DataFrame(dados)
+    dados = {"Nome": []}  # ESTRUTURA DOS DADOS
+    df = pd.DataFrame(dados)  # TRANSFORMANDO A ESTRUTURA EM UM DATASET
     linhas = []
     for i in range(0, quantidade_redes_sociais):
         new_dados = {
             "Nome": redes_sociais[i]
         }
-        linhas.append(new_dados)
-    df = pd.concat([df, pd.DataFrame(linhas)], ignore_index=True)
+        linhas.append(new_dados)  # ADICIONANDO O DICT COM OS DADOS Á LISTA DE LINHAS
+    df = pd.concat([df, pd.DataFrame(linhas)], ignore_index=True)  # JUNTANDO OS DOIS DFS
     return df
 
 
 def gerar_usuarios(quantidade_user, quantidade_grupo):
-    # Crie um DataFrame vazio com as colunas
-    dados_clientes = {
+    """
+    :param quantidade_user: Quantidade de usuários a ser gerado no BD
+    :param quantidade_grupo: Quantidade de grupos a ser gerado no BD
+    :return: DataFrame com os dados gerados
+    """
+    dados_clientes = {  # ESTRUTURA DOS DADOS
         "nome": [],
         "email": [],
         "tel": [],
         "id_gp": []
     }
-    df = pd.DataFrame(dados_clientes)
-    # Crie uma lista para armazenar as linhas de dados
+    df = pd.DataFrame(dados_clientes)  # TRANSFORMANDO A ESTRUTURA EM UM DATASET
     linhas = []
-    # Preencha a lista com dados fictícios
     for user in range(1, quantidade_user + 1):
         user1 = Usuarios(quantidade_grupo)
         new_dados = {
@@ -158,20 +171,25 @@ def gerar_usuarios(quantidade_user, quantidade_grupo):
             "tel": user1.telefone,
             "id_gp": user1.id_grupo
         }
-        linhas.append(new_dados)
-    #  adicionar as linhas ao DataFrame
-    df = pd.concat([df, pd.DataFrame(linhas)], ignore_index=True)
+        linhas.append(new_dados)  # ADICIONANDO O DICT COM OS DADOS Á LISTA DE LINHAS
+    df = pd.concat([df, pd.DataFrame(linhas)], ignore_index=True)  # JUNTANDO OS DOIS DFS
     return df
 
 
 def gerar_post(quantidade_posts, quantidade_user, quantidade_redes_sociais):
-    dados_posts = {
+    """
+    :param quantidade_posts: Quantidade de posts a ser gerado no BD
+    :param quantidade_user: Quantidade de usuários a ser gerado no BD
+    :param quantidade_redes_sociais: Quantidade de redes sociais a ser gerado no BD
+    :return: DataFrame com os dados gerados
+    """
+    dados_posts = {  # ESTRUTURA DOS DADOS
         "id_user": [],
         "conteudo": [],
         "data_post": [],
         "id_rede_social": []
     }
-    df = pd.DataFrame(dados_posts)
+    df = pd.DataFrame(dados_posts)  # TRANSFORMANDO A ESTRUTURA EM UM DATASET
     linhas = []
     for post in range(1, quantidade_posts + 1):
         post1 = Posts(quantidade_user, quantidade_redes_sociais)
@@ -181,12 +199,16 @@ def gerar_post(quantidade_posts, quantidade_user, quantidade_redes_sociais):
             "data post": post1.data_post,
             "id_rede_social": post1.id_rede_social
         }
-        linhas.append(new_dados)
-    df = pd.concat([df, pd.DataFrame(linhas)], ignore_index=True)
+        linhas.append(new_dados)  # ADICIONANDO O DICT COM OS DADOS Á LISTA DE LINHAS
+    df = pd.concat([df, pd.DataFrame(linhas)], ignore_index=True)  # JUNTANDO OS DOIS DFS
     return df
 
 
 def gerar_grupos(quantidade_grupo):
+    """
+    :param quantidade_grupo: quantidade de grupos a ser gerada
+    :return: um dataframe com os grupos
+    """
     global chave
     temas_com_descricao = {
         "Fotografia": "Compartilhe e discuta fotos incríveis, dicas de fotografia e técnicas de edição.",
@@ -200,20 +222,20 @@ def gerar_grupos(quantidade_grupo):
         "Livros": "Compartilhe suas leituras atuais, resenhas e recomendações de livros.",
         "Artesanato": "Mostre suas criações artesanais, compartilhe tutoriais e inspire-se na arte feita à mão."
     }
-    dados_grupo = {
+    dados_grupo = {  # ESTRUTURA DOS DADOS
         "Nome": [],
         "Descrição": []
     }
-    df = pd.DataFrame(dados_grupo)
-    linhas = []
+    df = pd.DataFrame(dados_grupo)  # TRANSFORMANDO A ESTRUTURA EM UM DATASET
+    linhas = []  # ONDE SERÃO ARMAZENADO AS LINHAS DO DF
     chaves = []  # armazenando as chaves do dicionarios para poder acessar por indice
-    for chave in temas_com_descricao.keys():
+    for chave in temas_com_descricao.keys():  # PEGANDO OS TEMAS
         chaves.append(chave)
     for i in range(0, quantidade_grupo):
         new_dados = {
             "Nome": chaves[i],
-            "Descrição": temas_com_descricao[chaves[i]]
+            "Descrição": temas_com_descricao[chaves[i]]  # PEGANDO AS DESCRIÇÕES DE ACORDO COM O TEMA
         }
-        linhas.append(new_dados)
-    df = pd.concat([df, pd.DataFrame(linhas)], ignore_index=True)
+        linhas.append(new_dados)  # ADICIONANDO O DICT COM OS DADOS Á LISTA DE LINHAS
+    df = pd.concat([df, pd.DataFrame(linhas)], ignore_index=True)  # JUNTANDO OS DOIS DFS
     return df
