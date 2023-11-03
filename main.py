@@ -1,5 +1,6 @@
 from gerar_dados import *
 from visuais import *
+from comandos_sql import *
 import mysql.connector
 
 # PARÂMETROS DA CONEXÃO
@@ -66,16 +67,24 @@ while True:
 
         # APAGAR DADOS
         elif escolha == 2:
-            apagar = int(input("\n**** Escolher Tabela ****\n"
-                               "[1] - Usuarios        |\n"
-                               "[2] - Posts           |\n"
-                               "[3] - Grupos          |\n"
-                               "[4] - Redes Sociais   |\n"
+            apagar = int(input("\n=== Escolher Tabela ===\n"
+                               "[1] - TABLE Usuarios  |\n"
+                               "[2] - TABLE Posts     |\n"
+                               "[3] - TABLE Grupos    |\n"
+                               "[4] - TABLE Sociais   |\n"
+                               "=======================\n"
                                ">>> "))
 
         # CONSULTAR DADOS
         elif escolha == 3:
-            pass
+            query_tabela = int(input(f"===== Consulta do BD: {database} =====\n"
+                                     "[1] - TABLE Usuarios         \n"
+                                     "[2] - TABLE Posts            \n"
+                                     "[3] - TABLE Grupos           \n"
+                                     "[4] - TABLE Sociais          \n"
+                                     "===================================\n"
+                                     ">>> "))
+            consulta(query_tabela)
 
         # SAIR
         elif escolha == 4:
